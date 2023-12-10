@@ -1,0 +1,13 @@
+controllers:
+    resource: ../src/Controller/
+    type: attribute
+
+
+welcome:
+    path: /welcome
+    controller: App\Controller\WelcomeController::index
+
+
+product_create:
+    path: /product/create
+    controller: App\Controller\ProductController::create

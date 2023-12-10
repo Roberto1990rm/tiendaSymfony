@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="UTF-8">
+        <title>{% block title %}Electronic E-Market{% endblock %}</title>
+        <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 128 128'><text y='1.2em' font-size='96'>🔌</text></svg>">
+        {% block stylesheets %}
+            {{ encore_entry_link_tags('app') }}
+        {% endblock %}
+
+        {% block javascripts %}
+            {{ encore_entry_script_tags('app') }}
+        {% endblock %}
+    </head>
+    <body>
+        <header>
+            <nav>
+                <!-- Barra de navegación aquí -->
+                <a href="/">Inicio</a>
+                <a href="/productos">Productos</a>
+                <a href="/contacto">Contacto</a>
+            </nav>
+        </header>
+
+        {% block body %}
+            <div class="main-content">
+                <!-- Contenido principal de la tienda -->
+                <h1>Bienvenidos a nuestra Tienda Electrónica Digital</h1>
+                <section class="products">
+                    <!-- Lista de productos aquí -->
+                    <article class="product">
+                        <img src="path_to_image.jpg" alt="Producto 1">
+                        <h2>Producto 1</h2>
+                        <p>Descripción del Producto 1.</p>
+                        <button>Añadir al carrito</button>
+                    </article>
+                    <!-- Repetir para más productos -->
+                </section>
+            </div>
+        {% endblock %}
+
+        <footer>
+            <!-- Pie de página aquí -->
+            <p>© 2023 Electronic E-Market</p>
+        </footer>
+    </body>
+</html>
