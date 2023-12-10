@@ -1,5 +1,7 @@
 {# templates/product/index.html.twig #}
 
+
+
 <!DOCTYPE html>
 <html>
 <head>
@@ -12,7 +14,13 @@
     <div class="products">
         {% for product in products %}
             <div class="product">
-                <img src="{{ product.img }}" alt="{{ product.title }}">
+                {% if product.img %}
+                    <!-- Utiliza la función 'asset' para generar la ruta correcta a la imagen -->
+                    <img src="{{ asset('uploads/images/' ~ product.img) }}" alt="{{ product.title }}">
+                {% else %}
+                    <!-- Puedes poner una imagen por defecto si no hay imagen -->
+                    <img src="{{ asset('images/default.png') }}" alt="Imagen por defecto">
+                {% endif %}
                 <h2>{{ product.title }}</h2>
                 <p>{{ product.body }}</p>
                 <p>Precio: {{ product.price }}</p>

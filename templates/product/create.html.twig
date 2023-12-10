@@ -1,7 +1,6 @@
 {# templates/product/create.html.twig #}
 
-{{ form_start(form) }}
+{{ form_start(form, {'attr': {'enctype':'multipart/form-data'}}) }}
 {{ form_widget(form) }}
-<button type="submit">Crear Producto</button>
+<button type="submit">Guardar Producto</button>
 {{ form_end(form) }}
-

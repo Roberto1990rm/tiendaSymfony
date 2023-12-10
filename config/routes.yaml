@@ -16,5 +16,6 @@ product_create:
 
 
 product_index:
-    path: /products
+    path: /product
     controller: App\Controller\ProductController::index
+
