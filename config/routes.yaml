@@ -11,3 +11,10 @@ welcome:
 product_create:
     path: /product/create
     controller: App\Controller\ProductController::create
+
+
+
+
+product_index:
+    path: /products
+    controller: App\Controller\ProductController::index

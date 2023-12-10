@@ -17,6 +17,16 @@ class ProductController extends AbstractController
     /**
      * @Route("/product/create", name="product_create")
      */
+ 
+public function index(EntityManagerInterface $entityManager): Response
+{
+    $products = $entityManager->getRepository(Product::class)->findAll();
+
+    return $this->render('product/index.html.twig', [
+        'products' => $products,
+    ]);
+}
+
     public function create(Request $request, EntityManagerInterface $entityManager): Response
     {
         $product = new Product();
