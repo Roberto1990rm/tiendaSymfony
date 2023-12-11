@@ -3,55 +3,57 @@
 namespace App\Entity;
 
 use App\Repository\ProductRepository;
-use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
 
-#[ORM\Entity(repositoryClass: ProductRepository::class)]
+/**
+ * @ORM\Entity(repositoryClass=ProductRepository::class)
+ */
 class Product
 {
-    #[ORM\Id]
-    #[ORM\GeneratedValue]
-    #[ORM\Column]
-    private ?int $id = null;
+    /**
+     * @ORM\Id
+     * @ORM\GeneratedValue
+     * @ORM\Column(type="integer")
+     */
+    private $id;
 
-    #[ORM\Column(length: 255, nullable: true)]
-    private ?string $img = null;
+    /**
+     * @ORM\Column(length=255, nullable=true)
+     */
+    private $img;
 
-    #[ORM\Column(length: 40)]
-    private ?string $title = null;
+    /**
+     * @ORM\Column(length=40)
+     */
+    private $title;
 
-    #[ORM\Column(length: 2000)]
-    private ?string $body = null;
+    /**
+     * @ORM\Column(length=2000)
+     */
+    private $body;
 
-    #[ORM\Column(type: Types::DECIMAL, precision: 10, scale: '0', nullable: true)]
-    private ?string $price = null;
+    /**
+     * @ORM\Column(type="decimal", precision=10, scale=0, nullable=true)
+     */
+    private $price;
 
-    #[ORM\Column(type: Types::DECIMAL, precision: 10, scale: '0')]
-    private ?string $units = null;
+    /**
+     * @ORM\Column(type="decimal", precision=10, scale=0)
+     */
+    private $units;
 
-    public function getId(): ?int
-    {
-        return $this->id;
-    }
-
-    public function getImg(): ?string
-    {
-        return $this->img;
-    }
-
-    public function setImg(?string $img): static
-    {
-        $this->img = $img;
-
-        return $this;
-    }
+    /**
+ * @ORM\ManyToOne(targetEntity=User::class)
+ * @ORM\JoinColumn(nullable=false)
+ */
+private $user;
 
     public function getTitle(): ?string
     {
         return $this->title;
     }
 
-    public function setTitle(string $title): static
+    public function setTitle(?string $title): self
     {
         $this->title = $title;
 
@@ -63,7 +65,7 @@ class Product
         return $this->body;
     }
 
-    public function setBody(string $body): static
+    public function setBody(?string $body): self
     {
         $this->body = $body;
 
@@ -71,26 +73,34 @@ class Product
     }
 
     public function getPrice(): ?string
+{
+    return $this->price;
+}
+
+public function setPrice(?string $price): self
+{
+    $this->price = $price;
+    return $this;
+}
+
+public function getUnits(): ?string
+{
+    return $this->units;
+}
+
+public function setUnits(?string $units): self
+{
+    $this->units = $units;
+    return $this;
+}
+
+public function setImg(?string $img): void
+{
+    $this->img = $img;
+}
+public function getImg(): ?string
     {
-        return $this->price;
+        return $this->img;
     }
 
-    public function setPrice(?string $price): static
-    {
-        $this->price = $price;
-
-        return $this;
-    }
-
-    public function getUnits(): ?string
-    {
-        return $this->units;
-    }
-
-    public function setUnits(string $units): static
-    {
-        $this->units = $units;
-
-        return $this;
-    }
 }
