@@ -9,6 +9,8 @@
     <h1 class="mb-4">Crear Producto</h1>
     {{ form_start(form, {'attr': {'enctype':'multipart/form-data', 'class':'needs-validation', 'novalidate':true}}) }}
     
+    <!-- Tus campos existentes -->
+
     <div class="form-group">
         {{ form_label(form.title, 'Título del Producto', {'label_attr': {'class': 'font-weight-bold'}}) }}
         {{ form_widget(form.title, {'attr': {'class':'form-control'}}) }}
@@ -27,9 +29,21 @@
         {{ form_errors(form.imageFile) }}
     </div>
 
+    <!-- Nuevos campos de precio y unidades -->
+
     <div class="form-group">
-        <!-- Aquí puedes agregar más campos del formulario si los tienes -->
+        {{ form_label(form.price, 'Precio', {'label_attr': {'class': 'font-weight-bold'}}) }}
+        {{ form_widget(form.price, {'attr': {'class':'form-control'}}) }}
+        {{ form_errors(form.price) }}
     </div>
+
+    <div class="form-group">
+        {{ form_label(form.units, 'Unidades', {'label_attr': {'class': 'font-weight-bold'}}) }}
+        {{ form_widget(form.units, {'attr': {'class':'form-control'}}) }}
+        {{ form_errors(form.units) }}
+    </div>
+
+    <!-- Botón de guardar después de los nuevos campos -->
 
     <div class="text-center">
         <button type="submit" class="btn btn-primary">Guardar Producto</button>
@@ -38,4 +52,3 @@
     {{ form_end(form) }}
 </div>
 {% endblock %}
-
