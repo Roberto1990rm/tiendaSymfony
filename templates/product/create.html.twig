@@ -1,6 +1,41 @@
 {# templates/product/create.html.twig #}
 
-{{ form_start(form, {'attr': {'enctype':'multipart/form-data'}}) }}
-{{ form_widget(form) }}
-<button type="submit">Guardar Producto</button>
-{{ form_end(form) }}
+{% extends 'base.html.twig' %}
+
+{% block title %}Crear Producto{% endblock %}
+
+{% block body %}
+<div class="container mt-4">
+    <h1 class="mb-4">Crear Producto</h1>
+    {{ form_start(form, {'attr': {'enctype':'multipart/form-data', 'class':'needs-validation', 'novalidate':true}}) }}
+    
+    <div class="form-group">
+        {{ form_label(form.title, 'Título del Producto', {'label_attr': {'class': 'font-weight-bold'}}) }}
+        {{ form_widget(form.title, {'attr': {'class':'form-control'}}) }}
+        {{ form_errors(form.title) }}
+    </div>
+
+    <div class="form-group">
+        {{ form_label(form.body, 'Descripción del Producto', {'label_attr': {'class': 'font-weight-bold'}}) }}
+        {{ form_widget(form.body, {'attr': {'class':'form-control'}}) }}
+        {{ form_errors(form.body) }}
+    </div>
+
+    <div class="form-group">
+        {{ form_label(form.imageFile, 'Imagen del Producto', {'label_attr': {'class': 'font-weight-bold'}}) }}
+        {{ form_widget(form.imageFile, {'attr': {'class':'form-control-file'}}) }}
+        {{ form_errors(form.imageFile) }}
+    </div>
+
+    <div class="form-group">
+        <!-- Aquí puedes agregar más campos del formulario si los tienes -->
+    </div>
+
+    <div class="text-center">
+        <button type="submit" class="btn btn-primary">Guardar Producto</button>
+    </div>
+
+    {{ form_end(form) }}
+</div>
+{% endblock %}
+

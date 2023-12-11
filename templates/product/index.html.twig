@@ -1,35 +1,33 @@
 {# templates/product/index.html.twig #}
 
+{% extends 'base.html.twig' %}
 
+{% block title %}Lista de Productos{% endblock %}
 
-<!DOCTYPE html>
-<html>
-<head>
-    <!-- Tus metadatos, estilos, etc. aquí -->
-</head>
-<body>
+{% block body %}
+<div class="container mt-4">
+    <h1 class="mb-4">Productos</h1>
 
-    <h1>Productos</h1>
-
-    <div class="products">
+     <div class="products row">
         {% for product in products %}
-            <div class="product">
-                {% if product.img %}
-                    <!-- Utiliza la función 'asset' para generar la ruta correcta a la imagen -->
-                    <img src="{{ asset('uploads/images/' ~ product.img) }}" alt="{{ product.title }}">
-                {% else %}
-                    <!-- Puedes poner una imagen por defecto si no hay imagen -->
-                    <img src="{{ asset('images/default.png') }}" alt="Imagen por defecto">
-                {% endif %}
-                <h2>{{ product.title }}</h2>
-                <p>{{ product.body }}</p>
-                <p>Precio: {{ product.price }}</p>
-                <p>Unidades: {{ product.units }}</p>
+            <div class="product col-md-4 mb-4">
+                <div class="card product-card">
+                    {% if product.img %}
+                        <img src="{{ asset('uploads/images/' ~ product.img) }}" alt="{{ product.title }}" class="card-img-top">
+                    {% else %}
+                        <img src="{{ asset('images/default.png') }}" alt="Imagen por defecto" class="card-img-top">
+                    {% endif %}
+                    <div class="card-body">
+                       <h5 class="card-title">{{ product.title }}</h5>
+                        <p class="card-text">{{ product.body }}</p>
+                        <p class="card-text">Precio: {{ product.price }}</p>
+                        <p class="card-text">Unidades: {{ product.units }}</p>
+                    </div>
+                </div>
             </div>
         {% else %}
-            <p>No hay productos disponibles.</p>
+            <p class="text-center">No hay productos disponibles.</p>
         {% endfor %}
     </div>
-
-</body>
-</html>
+</div>
+{% endblock %}

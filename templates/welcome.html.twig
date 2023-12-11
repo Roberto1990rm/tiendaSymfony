@@ -1,15 +1,14 @@
 {# templates/welcome.html.twig #}
 
-<!DOCTYPE html>
-<html>
-    <head>
-        <meta charset="UTF-8">
-        <title>Welcome to Our Site!</title>
-    </head>
-    <body>
-        <h1>Welcome to Our Site!</h1>
-        <p>This is a custom welcome page for our e-market.</p>
-        <a href="{{ path('product_create') }}" class="btn btn-primary">Crear Producto</a>
+{% extends 'base.html.twig' %}
 
-    </body>
-</html>
+{% block title %}Welcome to Our Site!{% endblock %}
+
+{% block body %}
+    <!-- Aquí va el contenido de tu página de bienvenida -->
+    <h1>Bienvenido a Nuestro Sitio!</h1>
+    <p>Este es el contenido de la página de bienvenida.</p>
+    <!-- Cualquier otro contenido HTML -->
+{% endblock %}
+
+
