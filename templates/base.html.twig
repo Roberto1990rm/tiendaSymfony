@@ -3,36 +3,28 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <meta charset="UTF-8">
+   <meta charset="UTF-8">
     <title>{% block title %}Bienvenido{% endblock %}</title>
     <link rel="stylesheet" href="{{ asset('css/styles.css') }}">
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
     <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/foundation/6.7.3/css/foundation.min.css">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
     <style>
- body {
-    background-color: #DDEEFF;
-}
-
+        body {
+            background-color: #DDEEFF;
+        }
     </style>
 </head>
 <body>
-    <!-- Navbar de Bootstrap -->
-    <nav class="navbar navbar-expand-lg navbar-light bg-light">
-        <a class="navbar-brand" href="{{ path('welcome') }}">Mi Sitio</a>
-        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
-            <span class="navbar-toggler-icon"></span>
-        </button>
-        <div class="collapse navbar-collapse" id="navbarNav">
-            <ul class="navbar-nav">
-                <li class="nav-item">
-                    <a class="nav-link" href="{{ path('welcome') }}">Inicio</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="{{ path('product_index') }}">Lista de Productos</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="{{ path('product_create') }}">Crear Producto</a>
-                </li>
+    <!-- Navbar de Foundation -->
+    <nav class="top-bar">
+        <div class="top-bar-left">
+            <ul class="menu">
+                 <li><a class="menu-text ml-2 mr-4" href="{{ path('welcome') }}">Mi Sitio</a></li>
+                <li><a href="{{ path('welcome') }}">Inicio</a></li>
+                <li><a href="{{ path('product_index') }}">Lista de Productos</a></li>
+                <li><a href="{{ path('product_create') }}">Crear Producto</a></li>
                 <!-- Más elementos del menú aquí -->
             </ul>
         </div>
@@ -42,9 +34,11 @@
         {% block body %}{% endblock %}
     </div>
 
-    <!-- Scripts de Bootstrap -->
-    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
-    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
+    <!-- Foundation JS -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/foundation/6.7.3/js/foundation.min.js"></script>
+    <script>
+        $(document).foundation();
+    </script>
 </body>
 </html>

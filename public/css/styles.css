@@ -25,3 +25,42 @@ body {
 .card-body {
     background-color: #f8f9fa; /* Color de fondo para el cuerpo de la tarjeta */
 }
+
+
+
+    /* Personalización de la Navbar */
+    .top-bar {
+        background-color: #333; /* Color de fondo oscuro para un look más profesional */
+        padding: 0.5rem 1rem; /* Espaciado interno para un look más limpio */
+    }
+
+    .top-bar .menu-text {
+        font-size: 1.2em; /* Tamaño de fuente moderado para el título */
+        color: #fff; /* Color de texto claro para contraste */
+        font-weight: 500; /* Peso de la fuente semi-negrita */
+    }
+
+    .top-bar .menu {
+        align-items: center; /* Alineación vertical de los elementos del menú */
+    }
+
+    .top-bar .menu a {
+        color: #000000; /* Color de texto suave para los enlaces */
+        font-size: 1.2em; /* Tamaño de fuente sutil para los enlaces */
+        margin-right: 20px; /* Espacio a la derecha de cada enlace para separación */
+        padding: 0.3rem 0; /* Espaciado vertical para cada enlace */
+        transition: color 0.3s ease; /* Transición suave al cambiar el color */
+    }
+
+    .top-bar .menu a:hover {
+        color: #4A90E2; /* Color de resaltado al pasar el ratón */
+        text-decoration: none; /* Elimina el subrayado al pasar el ratón */
+    }
+
+    /* Estilo para dispositivos móviles */
+    @media screen and (max-width: 640px) {
+        .top-bar .menu a {
+            margin-right: 10px; /* Menor espacio en dispositivos móviles */
+            font-size: 1em; /* Tamaño de fuente más pequeño en dispositivos móviles */
+        }
+    }
