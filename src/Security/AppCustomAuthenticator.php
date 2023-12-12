@@ -1,56 +1,48 @@
 <?php
-
+// src/Security/AppCustomAuthenticator.php
 namespace App\Security;
 
-use App\Repository\UserRepository;
-use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\Routing\Generator\UrlGeneratorInterface;
 use Symfony\Component\Security\Core\Authentication\Token\TokenInterface;
-use Symfony\Component\Security\Core\Security;
 use Symfony\Component\Security\Http\Authenticator\AbstractLoginFormAuthenticator;
+use Symfony\Component\Security\Http\Authenticator\Passport\Passport;
 use Symfony\Component\Security\Http\Authenticator\Passport\Badge\CsrfTokenBadge;
 use Symfony\Component\Security\Http\Authenticator\Passport\Badge\RememberMeBadge;
 use Symfony\Component\Security\Http\Authenticator\Passport\Badge\UserBadge;
 use Symfony\Component\Security\Http\Authenticator\Passport\Credentials\PasswordCredentials;
-use Symfony\Component\Security\Http\Authenticator\Passport\Passport;
-use Symfony\Component\Security\Http\Util\TargetPathTrait;
-use Symfony\Component\HttpFoundation\Session\SessionInterface;
+use Symfony\Component\Security\Core\Security;
+use App\Repository\UserRepository;
+use Symfony\Component\Security\Http\Util\TargetPathTrait; // Incluye TargetPathTrait
 
 class AppCustomAuthenticator extends AbstractLoginFormAuthenticator
 {
-    use TargetPathTrait;
-
-    public const LOGIN_ROUTE = 'app_login';
+    use TargetPathTrait; // Usa el trait aquí
 
     private $urlGenerator;
-    private $session;
     private $userRepository;
 
-    public function __construct(UrlGeneratorInterface $urlGenerator, SessionInterface $session, UserRepository $userRepository)
+    public function __construct(UrlGeneratorInterface $urlGenerator, UserRepository $userRepository)
     {
         $this->urlGenerator = $urlGenerator;
-        $this->session = $session;
         $this->userRepository = $userRepository;
     }
 
     public function authenticate(Request $request): Passport
     {
-        $usernameOrEmail = $request->request->get('username', '');
-        $request->getSession()->set(Security::LAST_USERNAME, $usernameOrEmail);
+        $username = $request->request->get('username', '');
+        $password = $request->request->get('password', '');
+        $csrfToken = $request->request->get('_csrf_token');
+
+        $request->getSession()->set(Security::LAST_USERNAME, $username);
 
         return new Passport(
-            new UserBadge($usernameOrEmail, function($userIdentifier) {
-                $user = $this->userRepository->findOneBy(['username' => $userIdentifier]);
-                if (!$user) {
-                    $user = $this->userRepository->findOneBy(['email' => $userIdentifier]);
-                }
-                return $user;
-            }),
-            new PasswordCredentials($request->request->get('password', '')),
+            new UserBadge($username),
+            new PasswordCredentials($password),
             [
-                new CsrfTokenBadge('authenticate', $request->request->get('_csrf_token')),
+                new CsrfTokenBadge('authenticate', $csrfToken),
                 new RememberMeBadge(),
             ]
         );
@@ -58,16 +50,16 @@ class AppCustomAuthenticator extends AbstractLoginFormAuthenticator
 
     public function onAuthenticationSuccess(Request $request, TokenInterface $token, string $firewallName): ?Response
     {
+        // Utiliza getTargetPath para redirigir al usuario a la ruta intentada originalmente
         if ($targetPath = $this->getTargetPath($request->getSession(), $firewallName)) {
             return new RedirectResponse($targetPath);
         }
 
-        // Por ejemplo, redirigir a la página de inicio después del inicio de sesión exitoso
-        return new RedirectResponse($this->urlGenerator->generate('some_route'));
+        return new RedirectResponse($this->urlGenerator->generate('welcome'));
     }
 
     protected function getLoginUrl(Request $request): string
     {
-        return $this->urlGenerator->generate(self::LOGIN_ROUTE);
+        return $this->urlGenerator->generate('app_login');
     }
 }

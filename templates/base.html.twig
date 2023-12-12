@@ -39,9 +39,7 @@
     <li class="nav-item">
         <span class="navbar-text">¡Hola, {{ app.user.username }}!</span>
     </li>
-    <li class="nav-item">
-        <a class="nav-link" href="{{ path('app_logout') }}">Logout</a>
-    </li>
+  
 {% else %}
     <li class="nav-item">
         <a class="nav-link" href="{{ path('app_register') }}">
@@ -54,11 +52,15 @@
         </a>
     </li>
 {% endif %}
+    {% if is_granted('IS_AUTHENTICATED_FULLY') %}
+        <a class="ml-3" href="{{ path('app_logout') }}">Logout</a>
+    {% endif %}
 
 
             <!-- Más elementos del menú aquí -->
         </ul>
     </div>
+    
 </nav>
 
     <div class="container">
