@@ -5,6 +5,13 @@
 {% block title %}Welcome to Our Site!{% endblock %}
 
 {% block body %}
+  {% for message in app.flashes('success') %}
+    <div class="alert alert-success">
+        {{ message }}
+    </div>
+{% endfor %}
+
+
     <!-- Aquí va el contenido de tu página de bienvenida -->
     <h1>Bienvenido a Nuestro Sitio!</h1>
     <p>Este es el contenido de la página de bienvenida.</p>

@@ -30,6 +30,7 @@ public function index(EntityManagerInterface $entityManager): Response
     ]);
 }
 
+#[Route('/create', name: 'product_create')]
 public function create(Request $request, EntityManagerInterface $entityManager, SluggerInterface $slugger): Response
 {
     $product = new Product();
@@ -55,9 +56,14 @@ public function create(Request $request, EntityManagerInterface $entityManager, 
 
             $product->setImg($newFilename);
         }
+        
+        // Setear user_id a 0
+        $product->setUserId(0);
 
         $entityManager->persist($product);
         $entityManager->flush();
+
+        $this->addFlash('success', 'Producto creado exitosamente.');
 
         return $this->redirectToRoute('product_index');
     }
@@ -66,4 +72,5 @@ public function create(Request $request, EntityManagerInterface $entityManager, 
         'form' => $form->createView(),
     ]);
 }
+
 }

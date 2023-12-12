@@ -43,10 +43,14 @@ class Product
     private $units;
 
     /**
- * @ORM\ManyToOne(targetEntity=User::class)
- * @ORM\JoinColumn(nullable=false)
- */
-private $user;
+     * @ORM\Column(type="integer", nullable=true, options={"default": 0})
+     */
+    private $user_id;
+
+    public function getId(): ?int
+    {
+        return $this->id;
+    }
 
     public function getTitle(): ?string
     {
@@ -73,34 +77,50 @@ private $user;
     }
 
     public function getPrice(): ?string
-{
-    return $this->price;
-}
+    {
+        return $this->price;
+    }
 
-public function setPrice(?string $price): self
-{
-    $this->price = $price;
-    return $this;
-}
+    public function setPrice(?string $price): self
+    {
+        $this->price = $price;
 
-public function getUnits(): ?string
-{
-    return $this->units;
-}
+        return $this;
+    }
 
-public function setUnits(?string $units): self
-{
-    $this->units = $units;
-    return $this;
-}
+    public function getUnits(): ?string
+    {
+        return $this->units;
+    }
 
-public function setImg(?string $img): void
-{
-    $this->img = $img;
-}
-public function getImg(): ?string
+    public function setUnits(?string $units): self
+    {
+        $this->units = $units;
+
+        return $this;
+    }
+
+    public function getImg(): ?string
     {
         return $this->img;
     }
 
+    public function setImg(?string $img): self
+    {
+        $this->img = $img;
+
+        return $this;
+    }
+
+    public function getUserId(): ?int
+    {
+        return $this->user_id;
+    }
+
+    public function setUserId(?int $userId): self
+    {
+        $this->user_id = $userId;
+
+        return $this;
+    }
 }

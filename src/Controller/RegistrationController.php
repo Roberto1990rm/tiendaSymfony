@@ -39,7 +39,10 @@ class RegistrationController extends AbstractController
             // return $this->redirectToRoute('some_route');
 
             // For this example, let's just render a simple message
-            return new Response('User registered successfully!');
+            $this->addFlash('success', 'User registered successfully!');
+
+            // Redirigir a la página de bienvenida
+            return $this->redirectToRoute('welcome');
         }
 
         // Render the registration form

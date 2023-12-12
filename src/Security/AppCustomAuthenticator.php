@@ -15,6 +15,7 @@ use Symfony\Component\Security\Http\Authenticator\Passport\Badge\UserBadge;
 use Symfony\Component\Security\Http\Authenticator\Passport\Credentials\PasswordCredentials;
 use Symfony\Component\Security\Http\Authenticator\Passport\Passport;
 use Symfony\Component\Security\Http\Util\TargetPathTrait;
+use Symfony\Component\HttpFoundation\Session\SessionInterface;
 
 class AppCustomAuthenticator extends AbstractLoginFormAuthenticator
 {
@@ -22,14 +23,18 @@ class AppCustomAuthenticator extends AbstractLoginFormAuthenticator
 
     public const LOGIN_ROUTE = 'app_login';
 
-    public function __construct(private UrlGeneratorInterface $urlGenerator)
+    private $urlGenerator;
+    private $session;
+
+    public function __construct(UrlGeneratorInterface $urlGenerator, SessionInterface $session)
     {
+        $this->urlGenerator = $urlGenerator;
+        $this->session = $session;
     }
 
     public function authenticate(Request $request): Passport
     {
         $username = $request->request->get('username', '');
-
         $request->getSession()->set(Security::LAST_USERNAME, $username);
 
         return new Passport(
@@ -44,14 +49,18 @@ class AppCustomAuthenticator extends AbstractLoginFormAuthenticator
 
     public function onAuthenticationSuccess(Request $request, TokenInterface $token, string $firewallName): ?Response
     {
-        if ($targetPath = $this->getTargetPath($request->getSession(), $firewallName)) {
-            return new RedirectResponse($targetPath);
-        }
-
-        // For example:
-        // return new RedirectResponse($this->urlGenerator->generate('some_route'));
-        throw new \Exception('TODO: provide a valid redirect inside '.__FILE__);
+        // Recuperar el nombre de usuario del token
+        $username = $token->getUser()->getUserIdentifier();
+    
+        // Agregar un mensaje flash con el nombre de usuario
+        $this->session->getFlashBag()->add('success', '¡Inicio de sesión exitoso, bienvenido ' . $username . '!');
+    
+        // Redirigir a la página de bienvenida
+        return new RedirectResponse($this->urlGenerator->generate('welcome'));
     }
+    
+
+    
 
     protected function getLoginUrl(Request $request): string
     {
