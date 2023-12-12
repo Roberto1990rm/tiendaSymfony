@@ -2,6 +2,7 @@
 
 namespace App\Security;
 
+use App\Repository\UserRepository;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -25,20 +26,28 @@ class AppCustomAuthenticator extends AbstractLoginFormAuthenticator
 
     private $urlGenerator;
     private $session;
+    private $userRepository;
 
-    public function __construct(UrlGeneratorInterface $urlGenerator, SessionInterface $session)
+    public function __construct(UrlGeneratorInterface $urlGenerator, SessionInterface $session, UserRepository $userRepository)
     {
         $this->urlGenerator = $urlGenerator;
         $this->session = $session;
+        $this->userRepository = $userRepository;
     }
 
     public function authenticate(Request $request): Passport
     {
-        $username = $request->request->get('username', '');
-        $request->getSession()->set(Security::LAST_USERNAME, $username);
+        $usernameOrEmail = $request->request->get('username', '');
+        $request->getSession()->set(Security::LAST_USERNAME, $usernameOrEmail);
 
         return new Passport(
-            new UserBadge($username),
+            new UserBadge($usernameOrEmail, function($userIdentifier) {
+                $user = $this->userRepository->findOneBy(['username' => $userIdentifier]);
+                if (!$user) {
+                    $user = $this->userRepository->findOneBy(['email' => $userIdentifier]);
+                }
+                return $user;
+            }),
             new PasswordCredentials($request->request->get('password', '')),
             [
                 new CsrfTokenBadge('authenticate', $request->request->get('_csrf_token')),
@@ -49,18 +58,13 @@ class AppCustomAuthenticator extends AbstractLoginFormAuthenticator
 
     public function onAuthenticationSuccess(Request $request, TokenInterface $token, string $firewallName): ?Response
     {
-        // Recuperar el nombre de usuario del token
-        $username = $token->getUser()->getUserIdentifier();
-    
-        // Agregar un mensaje flash con el nombre de usuario
-        $this->session->getFlashBag()->add('success', '¡Inicio de sesión exitoso, bienvenido ' . $username . '!');
-    
-        // Redirigir a la página de bienvenida
-        return new RedirectResponse($this->urlGenerator->generate('welcome'));
-    }
-    
+        if ($targetPath = $this->getTargetPath($request->getSession(), $firewallName)) {
+            return new RedirectResponse($targetPath);
+        }
 
-    
+        // Por ejemplo, redirigir a la página de inicio después del inicio de sesión exitoso
+        return new RedirectResponse($this->urlGenerator->generate('some_route'));
+    }
 
     protected function getLoginUrl(Request $request): string
     {
