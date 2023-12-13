@@ -26,6 +26,58 @@ body {
     background-color: #f8f9fa; /* Color de fondo para el cuerpo de la tarjeta */
 }
 
+/* Estilo básico de la navbar */
+.navbar {
+    background-color: #4a69bd; /* Color de fondo general de la navbar */
+}
+
+.nav-link {
+    color: grey !important; /* Color del texto de los enlaces */
+    border-radius: 15px; /* Esquinas redondeadas */
+    transition: background-color 0.3s, color 0.3s; /* Transición suave para el hover */
+    margin: 5px; /* Espacio entre elementos */
+    padding: 5px 10px; /* Acolchado interno para cada elemento */
+}
+
+/* Colores de fondo específicos para cada nav-item */
+.nav-item:nth-child(1) .nav-link { background-color: #78e08f; }
+.nav-item:nth-child(2) .nav-link { background-color: #f8c291; }
+.nav-item:nth-child(3) .nav-link { background-color: #82ccdd; }
+/* Añadir más colores según el número de elementos en tu navbar */
+
+.nav-link:hover {
+    color: white !important; /* Color del texto al hacer hover */
+    background-color: #60a3bc; /* Color de fondo al hacer hover */
+}
+
+.navbar {
+    background-color: #f8f9fa; /* Color de fondo ligero */
+    border-bottom: 3px solid #007bff; /* Borde inferior azul */
+}
+
+/* Estilo para los elementos de la navbar */
+.navbar-nav .nav-item .nav-link {
+    color: grey; /* Color de texto gris */
+    transition: color 0.3s; /* Transición suave para el color */
+}
+
+/* Efecto hover para los enlaces */
+.navbar-nav .nav-item .nav-link:hover {
+    color: #007bff; /* Cambio de color al pasar el mouse */
+    text-decoration: underline; /* Subrayado al pasar el mouse */
+}
+
+/* Estilo para el logo de la navbar */
+.navbar-brand img {
+    transition: transform 0.3s; /* Transición suave para la transformación */
+}
+
+/* Efecto hover para el logo */
+.navbar-brand img:hover {
+    transform: scale(1.1); /* Aumento de tamaño al pasar el mouse */
+}
+
+/* Estilo adicional para
 
 
     /* Personalización de la Navbar */
