@@ -129,10 +129,42 @@ footer .fab {
         text-decoration: none; /* Elimina el subrayado al pasar el ratón */
     }
 
+    .product-card {
+    background-image: linear-gradient(to right bottom, #ff6b6b, #ffcc70, #c8e9a0, #69d2e7, #a480cf);
+    background-clip: padding-box; /* Aplica el fondo solo al área de relleno */
+    border: solid 1px transparent; /* Crea un borde transparente para mantener el fondo dentro de los límites de la tarjeta */
+    border-radius: 0.25rem; /* Esquinas redondeadas */
+    color: #000000; /* Color del texto blanco para mejor contraste */
+}
+
+.card-img-top {
+    opacity: 1; /* Asegura que la imagen no tenga opacidad */
+}
+
+.card-body {
+    background-color: rgba(255, 255, 255, 0.8); /* Fondo semi-transparente para el cuerpo de la tarjeta */
+    border-radius: 0.25rem; /* Esquinas redondeadas */
+}
+
+
     /* Estilo para dispositivos móviles */
-    @media screen and (max-width: 640px) {
+    @media screen and (max-width: 950px) {
         .top-bar .menu a {
             margin-right: 10px; /* Menor espacio en dispositivos móviles */
             font-size: 1em; /* Tamaño de fuente más pequeño en dispositivos móviles */
+        }
+ 
+        .navbar-nav {
+            width: 100%; /* Asegúrate de que la lista ocupe todo el ancho disponible */
+            justify-content: center; /* Centra los elementos horizontalmente si la navbar usa flex */
+        }
+    
+        .nav-item {
+            flex: 1; /* Hace que cada nav-item ocupe un espacio igual */
+            text-align: center; /* Centra el texto dentro de cada nav-item */
+        }
+    
+        .nav-link {
+            width: 100%; /* Asegúrate de que el enlace ocupe todo el ancho del nav-item */
         }
     }
