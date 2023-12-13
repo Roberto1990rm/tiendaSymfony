@@ -1,21 +1,36 @@
-{# templates/welcome.html.twig #}
 
 {% extends 'base.html.twig' %}
 
-{% block title %}Welcome to Our Site!{% endblock %}
+{% block title %}Welcome to Movilya!{% endblock %}
 
 {% block body %}
-  {% for message in app.flashes('success') %}
-    <div class="alert alert-success">
-        {{ message }}
+<div class="welcome-container">
+    <h1 class="animated-title">Bienvenido a MovilYa</h1>
+    
+    <h2 class="panther-title">Último Producto en Venta Publicado</h2>
+
+    {% if ultimoProducto %}
+        <div class="product mb-4">
+            <div class="card product-card">
+                {% if ultimoProducto.img %}
+                    <img src="{{ asset('uploads/images/' ~ ultimoProducto.img) }}" alt="{{ ultimoProducto.title }}" class="card-img-top">
+                {% else %}
+                    <img src="{{ asset('images/default.png') }}" alt="Imagen por defecto" class="card-img-top">
+                {% endif %}
+                <div class="card-body">
+                    <h5 class="card-title">{{ ultimoProducto.title }}</h5>
+                    <p class="card-text">{{ ultimoProducto.body }}</p>
+                    <p class="card-text">Precio: {{ ultimoProducto.price }}</p>
+                    <p class="card-text">Unidades: {{ ultimoProducto.units }}</p>
+                </div>
+            </div>
+       
+        </div>
+              <div class="view-more mt-5 mb-5">
+        <a href="{{ path('product_index') }}" class="btn-view-more">Ver más productos</a>
     </div>
-{% endfor %}
-
-
-    <!-- Aquí va el contenido de tu página de bienvenida -->
-    <h1>Bienvenido a Nuestro Sitio!</h1>
-    <p>Este es el contenido de la página de bienvenida.</p>
-    <!-- Cualquier otro contenido HTML -->
+    {% else %}
+        <p class="text-center">No hay productos recientes.</p>
+    {% endif %}
+    </div>
 {% endblock %}
-
-

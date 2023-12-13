@@ -21,14 +21,23 @@ class ProductController extends AbstractController
      * @Route("/product/create", name="product_create")
      */
  
-public function index(EntityManagerInterface $entityManager): Response
-{
-    $products = $entityManager->getRepository(Product::class)->findAll();
-
-    return $this->render('product/index.html.twig', [
-        'products' => $products,
-    ]);
-}
+     public function index(EntityManagerInterface $entityManager, Request $request): Response
+     {
+         $limite = 10; // Número de productos por página
+         $pagina = max(1, $request->query->getInt('page', 1)); // Obtener el número de página de la URL, 1 por defecto
+         $offset = ($pagina - 1) * $limite;
+     
+         $totalProductos = $entityManager->getRepository(Product::class)->count([]);
+         $products = $entityManager->getRepository(Product::class)
+             ->findBy([], ['id' => 'ASC'], $limite, $offset);
+     
+         return $this->render('product/index.html.twig', [
+             'products' => $products,
+             'totalProductos' => $totalProductos,
+             'paginaActual' => $pagina,
+             'totalPaginas' => ceil($totalProductos / $limite)
+         ]);
+     }
 
 #[Route('/create', name: 'product_create')]
 public function create(Request $request, EntityManagerInterface $entityManager, SluggerInterface $slugger): Response
