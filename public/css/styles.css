@@ -1,9 +1,12 @@
 /* public/css/styles.css */
-
-
+html, body {
+    height: 100%;
+    margin: 0;
+}
 
 body {
-    background-color: blue; /* Reemplaza #tuColorDeFondo con tu color preferido */
+    display: flex;
+    flex-direction: column;
 }
 /* Estilos para las tarjetas de productos */
 .product-card {
@@ -76,7 +79,24 @@ body {
 .navbar-brand img:hover {
     transform: scale(1.1); /* Aumento de tamaño al pasar el mouse */
 }
+footer {
+    margin-top: auto; /* Mueve el footer a la parte inferior */
+    background-color: #343a40; /* Color de fondo del footer */
+    color: white; /* Color del texto */
+}
 
+footer a {
+    color: #f8f9fa; /* Color de los enlaces */
+    transition: color 0.2s; /* Efecto suave al pasar el cursor */
+}
+
+footer a:hover {
+    color: #007bff; /* Color al pasar el cursor */
+}
+
+footer .fab {
+    font-size: 1.8rem; /* Tamaño de los iconos */
+}
 /* Estilo adicional para
 
 
