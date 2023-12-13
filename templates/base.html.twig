@@ -39,9 +39,7 @@
         <span class="navbar-text">¡Hola, {{ app.user.username }}!</span>
     </li>
 
-     {% if is_granted('IS_AUTHENTICATED_FULLY') %}
         <a class="ml-3" href="{{ path('app_logout') }}">Logout</a>
-    {% endif %}
   
 {% else %}
     <li class="nav-item">
